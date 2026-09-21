@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,24 +9,29 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
+     * Mass Assignable Fields
      */
     protected $fillable = [
         'name',
         'email',
         'password',
+
+        // Profile
+        'profile_photo',
+        'phone',
+        'dob',
+        'gender',
+
+        // Admin / Volunteer
+        'role',
+        'status',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
+     * Hidden Fields
      */
     protected $hidden = [
         'password',
@@ -35,15 +39,50 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Type Casting
      */
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'dob' => 'date',
         ];
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
+    // Volunteer Event Registrations
+    public function registrations()
+    {
+        return $this->hasMany(EventRegistration::class);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Helper Methods
+    |--------------------------------------------------------------------------
+    */
+
+    // Check Admin
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    // Check Volunteer
+    public function isVolunteer(): bool
+    {
+        return $this->role === 'volunteer';
+    }
+
+    // Check Active Status
+    public function isActive(): bool
+    {
+        return strtolower($this->status ?? 'active') === 'active';
     }
 }
