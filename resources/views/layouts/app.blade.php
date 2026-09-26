@@ -126,7 +126,7 @@ class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b bord
                 <div class="space-y-2 text-sm text-gray-400">
                     <p>📍 Nashik, Maharashtra</p>
                     <p>📧 volunteerhub@gmail.com</p>
-                    <p>📞 +91 98765 43210</p>
+                    <p>📞 +91 9960153691</p>
                 </div>
 
                 <!-- Social Icons -->
@@ -151,7 +151,9 @@ class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-xl border-b bord
 
         <!-- Bottom -->
         <div class="border-t border-gray-800 mt-6 pt-4 text-center text-xs text-gray-500">
-            © 2026 VolunteerHub • Built with Laravel 12 + PostgreSQL + Tailwind CSS.
+           © 2026 VolunteerHub • Built with Laravel 12 + PostgreSQL + Tailwind CSS
+Designed & Developed by Nikhil Khairnar
+
         </div>
 
     </div>

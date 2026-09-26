@@ -64,38 +64,77 @@
 
     </section>
 
-    {{-- ================= STATS ================= --}}
-    <div class="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
+   {{-- ================= STATS ================= --}}
+<div class="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 
-            <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
-                <div class="text-4xl">🌍</div>
-                <h2 class="text-3xl font-black text-green-700 mt-2">{{ count($events) }}</h2>
-                <p class="text-gray-500 text-sm">Active Events</p>
-            </div>
+        {{-- Active Events --}}
+        <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
 
-            <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
-                <div class="text-4xl">👥</div>
-                <h2 class="text-3xl font-black text-blue-700">205+</h2>
-                <p class="text-gray-500 text-sm">Volunteers Joined</p>
-            </div>
+            <div class="text-4xl">🌍</div>
 
-            <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
-                <div class="text-4xl">🏆</div>
-                <h2 class="text-3xl font-black text-yellow-500">180+</h2>
-                <p class="text-gray-500 text-sm">Certificates</p>
-            </div>
+            <h2 class="text-3xl font-black text-green-700 mt-2">
+                {{ $activeEvents }}
+            </h2>
 
-            <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
-                <div class="text-4xl">❤️</div>
-                <h2 class="text-3xl font-black text-red-500">15 NGOs</h2>
-                <p class="text-gray-500 text-sm">Community Partners</p>
-            </div>
+            <p class="text-gray-500 text-sm">
+                Active Events
+            </p>
+
+        </div>
+
+
+        {{-- Volunteers Joined --}}
+        <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
+
+            <div class="text-4xl">👥</div>
+
+            <h2 class="text-3xl font-black text-blue-700">
+                {{ $volunteersJoined }}
+            </h2>
+
+            <p class="text-gray-500 text-sm">
+                Volunteers Joined
+            </p>
+
+        </div>
+
+
+        {{-- Certificates --}}
+        <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
+
+            <div class="text-4xl">🏆</div>
+
+            <h2 class="text-3xl font-black text-yellow-500">
+                {{ $certificates }}
+            </h2>
+
+            <p class="text-gray-500 text-sm">
+                Certificates
+            </p>
+
+        </div>
+
+
+        {{-- Community Partners --}}
+        <div class="bg-white rounded-2xl shadow-lg p-5 text-center">
+
+            <div class="text-4xl">❤️</div>
+
+            <h2 class="text-3xl font-black text-red-500">
+                {{ $communityPartners }}
+            </h2>
+
+            <p class="text-gray-500 text-sm">
+                Community Partners
+            </p>
 
         </div>
 
     </div>
+
+</div>
 
     {{-- ================= SEARCH BAR ================= --}}
     <section class="max-w-7xl mx-auto px-6 mt-10">
@@ -181,93 +220,7 @@
 
     </section>
 
-    {{-- ================= FEATURED EVENT ================= --}}
-    @if(count($events) > 0)
-
-        @php
-            $featured = $events[0];
-            $remaining = $featured->capacity - $featured->filled_slots;
-        @endphp
-
-        <section class="max-w-7xl mx-auto px-6 mt-12">
-
-            <div class="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 rounded-[35px] overflow-hidden shadow-2xl">
-
-                <div class="grid lg:grid-cols-2 items-center">
-
-                    <div class="p-10 text-white">
-
-                        <span class="bg-yellow-300 text-black px-4 py-2 rounded-full text-xs font-bold">
-                            ⭐ FEATURED EVENT
-                        </span>
-
-                        <h2 class="text-4xl font-black mt-5">
-                            {{ $featured->title }}
-                        </h2>
-
-                        <p class="mt-4 text-green-100">
-                            {{ $featured->description }}
-                        </p>
-
-                        <div class="grid grid-cols-2 gap-5 mt-8">
-
-                            <div>
-                                <p class="text-green-200 text-sm">📅 Date</p>
-                                <h4 class="font-bold">
-                                    {{ $featured->event_date->format('d M Y') }}
-                                </h4>
-                            </div>
-
-                            <div>
-                                <p class="text-green-200 text-sm">📍 Location</p>
-                                <h4 class="font-bold">
-                                    {{ $featured->city }} • {{ $featured->venue }}
-                                </h4>
-                            </div>
-
-                            <div>
-                                <p class="text-green-200 text-sm">👥 Capacity</p>
-                                <h4 class="font-bold">
-                                    {{ $featured->filled_slots }}/{{ $featured->capacity }} Joined
-                                </h4>
-                            </div>
-
-                            <div>
-                                <p class="text-green-200 text-sm">🪑 Slots Left</p>
-                                <h4 class="font-bold">
-                                    {{ $remaining }}
-                                </h4>
-                            </div>
-
-                        </div>
-
-                        <button class="mt-8 bg-white text-green-700 px-6 py-3 rounded-xl font-bold hover:bg-green-100">
-                            🤝 Join Featured Event
-                        </button>
-
-                    </div>
-
-                   <div class="hidden lg:block h-full">
-
-                    @if($featured->banner)
-                        <img src="{{ asset('images/events/' . $featured->banner) }}"
-                            alt="{{ $featured->title }}"
-                            class="w-full h-full object-cover">
-                    @else
-                        <div class="w-full h-full bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center text-[150px]">
-                            🌿
-                        </div>
-                    @endif
-
-                </div>
-                </div>
-
-            </div>
-
-        </section>
-
-    @endif
-
+    
     {{-- ================= EVENTS GRID ================= --}}
     <section id="events" class="max-w-7xl mx-auto px-6 py-14">
 

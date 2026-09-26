@@ -2,94 +2,181 @@
 
 @section('content')
 
-<div class="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
+<div class="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
 
-    <!-- ================= HERO SECTION ================= -->
-    <section class="bg-gradient-to-r from-green-700 via-emerald-600 to-blue-700 rounded-b-[40px] shadow-xl text-white">
 
-        <div class="max-w-7xl mx-auto px-6 py-10">
+    {{-- ========================================================= --}}
+    {{-- HERO SECTION --}}
+    {{-- ========================================================= --}}
 
-            <div class="flex flex-col lg:flex-row justify-between items-center gap-8">
+    <section class="relative overflow-hidden bg-gradient-to-r from-green-800 via-emerald-700 to-teal-700 text-white rounded-b-[45px] shadow-2xl">
 
-                <!-- Welcome Text -->
-                <div class="flex-1">
+        {{-- Decorative Background --}}
+        <div class="absolute -top-28 -right-20 w-80 h-80 bg-white/10 rounded-full"></div>
 
-                    <span class="bg-green-500/30 px-4 py-2 rounded-full text-sm">
-                        🌿 Student Volunteer Portal
-                    </span>
+        <div class="absolute -bottom-32 -left-20 w-80 h-80 bg-emerald-400/10 rounded-full"></div>
 
-                    <h1 class="text-5xl lg:text-6xl font-black mt-5 leading-tight">
+        <div class="absolute top-1/2 right-1/3 w-32 h-32 bg-teal-300/10 rounded-full blur-2xl"></div>
+
+
+        <div class="relative max-w-7xl mx-auto px-6 py-12">
+
+            <div class="grid lg:grid-cols-3 gap-10 items-center">
+
+
+                {{-- ================================================= --}}
+                {{-- HERO TEXT --}}
+                {{-- ================================================= --}}
+
+                <div class="lg:col-span-2">
+
+                    <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-full text-sm font-semibold">
+
+                        <span class="w-2 h-2 bg-green-300 rounded-full animate-pulse"></span>
+
+                        Student Volunteer Portal
+
+                    </div>
+
+
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mt-6 leading-tight">
+
                         Welcome Back,
+
                         <span class="text-yellow-300">
-                            {{ Auth::user()->name }}
+
+                            {{ $user->name }}
+
                         </span>
+
+                        👋
+
                     </h1>
 
-                    <p class="mt-5 text-green-100 text-lg leading-8 max-w-xl">
-                        Join community events, earn volunteer hours, unlock badges,
-                        and make a positive impact through VolunteerHub.
+
+                    <p class="mt-5 text-green-100 text-lg max-w-2xl leading-8">
+
+                        Continue your volunteering journey, track your impact,
+                        manage your events and build a better community with
+                        VolunteerHub.
+
                     </p>
+
 
                     <div class="flex flex-wrap gap-4 mt-8">
 
-                        <button class="bg-yellow-400 hover:bg-yellow-300 text-black px-7 py-3 rounded-full font-bold transition shadow-lg">
-                            🌍 Browse Events
-                        </button>
+                        <a href="{{ route('events.index') }}"
+                           class="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-7 py-3.5 rounded-full font-bold shadow-xl transition hover:-translate-y-1">
 
-                        <button class="border border-white px-7 py-3 rounded-full hover:bg-white hover:text-green-700 transition">
-                            📅 My Events
-                        </button>
+                            🌍 Browse Events
+
+                        </a>
+
+
+                        <a href="#schedule"
+                           class="inline-flex items-center gap-2 border border-white/50 hover:bg-white hover:text-green-800 px-7 py-3.5 rounded-full font-bold transition">
+
+                            📅 My Schedule
+
+                        </a>
 
                     </div>
 
                 </div>
 
-                <!-- Student Profile Card -->
-                <div class="w-full lg:w-80">
 
-                    <div class="bg-white/15 backdrop-blur-xl rounded-3xl p-6 border border-white/20 shadow-2xl">
+                {{-- ================================================= --}}
+                {{-- PROFILE CARD --}}
+                {{-- ================================================= --}}
 
-                        <div class="flex flex-col items-center">
+                <div>
 
-                            <div class="w-24 h-24 rounded-full bg-white text-green-700 flex items-center justify-center text-5xl font-black shadow-xl">
-                                {{ strtoupper(substr(Auth::user()->name,0,1)) }}
-                            </div>
+                    <div class="bg-white/10 backdrop-blur-xl border border-white/20 rounded-[30px] p-7 shadow-2xl">
+
+                        <div class="text-center">
+
+
+                            {{-- Profile --}}
+                            @if($user->profile_photo)
+
+                                <img
+                                    src="{{ asset('storage/' . $user->profile_photo) }}"
+                                    alt="Profile Photo"
+                                    class="w-24 h-24 mx-auto rounded-full object-cover border-4 border-white shadow-xl">
+
+                            @else
+
+                                <div class="w-24 h-24 mx-auto rounded-full bg-white text-green-700 flex items-center justify-center text-4xl font-black shadow-xl">
+
+                                    {{ strtoupper(substr($user->name, 0, 1)) }}
+
+                                </div>
+
+                            @endif
+
 
                             <h2 class="text-2xl font-bold mt-4">
-                                {{ Auth::user()->name }}
+
+                                {{ $user->name }}
+
                             </h2>
 
-                            <p class="text-green-100 text-sm">
-                                {{ Auth::user()->email }}
+
+                            <p class="text-green-100 text-sm break-all">
+
+                                {{ $user->email }}
+
                             </p>
 
-                            <span class="mt-3 bg-green-400 text-green-900 text-xs px-4 py-2 rounded-full font-bold">
-                                ⭐ Active Volunteer
-                            </span>
+
+                            <div class="inline-flex items-center gap-2 mt-4 bg-green-300 text-green-950 px-4 py-2 rounded-full text-xs font-bold">
+
+                                {{ $badgeIcon }}
+
+                                {{ $badge }}
+
+                            </div>
 
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 mt-6">
 
-                            <div class="bg-white/10 rounded-2xl p-4 text-center">
+                        {{-- Mini Stats --}}
+                        <div class="grid grid-cols-2 gap-4 mt-7">
 
-                                <h3 class="text-2xl font-black">48</h3>
 
-                                <p class="text-xs text-green-100">
+                            <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10">
+
+                                <div class="text-2xl font-black">
+
+                                    {{ number_format($volunteerHours, 0) }}
+
+                                </div>
+
+                                <div class="text-xs text-green-100 mt-1">
+
                                     Volunteer Hours
-                                </p>
+
+                                </div>
 
                             </div>
 
-                            <div class="bg-white/10 rounded-2xl p-4 text-center">
 
-                                <h3 class="text-2xl font-black">5</h3>
+                            <div class="bg-white/10 rounded-2xl p-4 text-center border border-white/10">
 
-                                <p class="text-xs text-green-100">
+                                <div class="text-2xl font-black">
+
+                                    {{ $eventsJoined }}
+
+                                </div>
+
+                                <div class="text-xs text-green-100 mt-1">
+
                                     Events Joined
-                                </p>
+
+                                </div>
 
                             </div>
+
 
                         </div>
 
@@ -103,544 +190,658 @@
 
     </section>
 
-    <!-- ================= DASHBOARD CONTENT ================= -->
-    <div class="max-w-7xl mx-auto px-6 py-10">
 
-        <!-- Title -->
-        <div class="flex justify-between items-center mb-8">
+
+    {{-- ========================================================= --}}
+    {{-- MAIN CONTENT --}}
+    {{-- ========================================================= --}}
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+
+
+        {{-- ===================================================== --}}
+        {{-- DASHBOARD HEADER --}}
+        {{-- ===================================================== --}}
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-5 mb-8">
 
             <div>
-                <h2 class="text-3xl font-black text-gray-800">
-                    📊 My Volunteer Dashboard
+
+                <div class="inline-flex items-center gap-2 text-green-700 text-sm font-bold mb-2">
+
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+
+                    VOLUNTEER OVERVIEW
+
+                </div>
+
+
+                <h2 class="text-3xl md:text-4xl font-black text-gray-900">
+
+                    My Volunteer Dashboard
+
                 </h2>
+
 
                 <p class="text-gray-500 mt-2">
-                    Overview of your volunteer journey and upcoming opportunities.
+
+                    Overview of your volunteering journey and activities.
+
                 </p>
+
             </div>
 
-            <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full font-semibold">
-                📅 {{ now()->format('l, d M Y') }}
-            </span>
+
+            <div class="bg-white border border-green-100 shadow-sm px-5 py-3 rounded-2xl">
+
+                <div class="text-xs text-gray-400 font-semibold">
+
+                    TODAY
+
+                </div>
+
+                <div class="text-green-700 font-bold">
+
+                    {{ now()->format('l, d M Y') }}
+
+                </div>
+
+            </div>
 
         </div>
 
-        <!-- ================= STATS CARDS ================= -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 
-            <!-- Card 1 -->
-            <div class="bg-white rounded-3xl p-6 shadow-lg hover:-translate-y-2 hover:shadow-2xl transition">
 
-                <div class="flex justify-between items-center">
+        {{-- ===================================================== --}}
+        {{-- STAT CARDS --}}
+        {{-- ===================================================== --}}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+
+
+            {{-- Upcoming --}}
+            <div class="group bg-white rounded-[28px] p-6 border border-green-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition">
+
+                <div class="flex justify-between items-start">
 
                     <div class="w-14 h-14 rounded-2xl bg-green-100 flex items-center justify-center text-3xl">
-                        🎉
+
+                        📅
+
                     </div>
 
-                    <span class="text-green-600 text-sm font-bold">
-                        +2 This Week
+                    <span class="text-xs font-bold bg-green-50 text-green-700 px-3 py-1.5 rounded-full">
+
+                        Upcoming
+
                     </span>
 
                 </div>
 
-                <p class="mt-5 text-gray-500">Upcoming Events</p>
 
-                <h2 class="text-4xl font-black text-green-600 mt-2">
-                    12
-                </h2>
+                <p class="text-gray-500 mt-6">
 
-                <p class="text-green-600 text-sm mt-3">
-                    New volunteering opportunities available.
+                    Upcoming Events
+
+                </p>
+
+
+                <h3 class="text-4xl font-black text-green-600 mt-1">
+
+                    {{ $upcomingEvents }}
+
+                </h3>
+
+
+                <p class="text-sm text-gray-400 mt-2">
+
+                    Approved events coming up.
+
                 </p>
 
             </div>
 
-            <!-- Card 2 -->
-            <div class="bg-white rounded-2xl p-4 shadow-md hover:-translate-y-1 hover:shadow-xl transition duration-300">
-                <div class="flex justify-between items-center">
+
+
+            {{-- Joined --}}
+            <div class="group bg-white rounded-[28px] p-6 border border-blue-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition">
+
+                <div class="flex justify-between items-start">
 
                     <div class="w-14 h-14 rounded-2xl bg-blue-100 flex items-center justify-center text-3xl">
+
                         🤝
+
                     </div>
 
-                    <span class="text-blue-600 text-sm font-bold">
+                    <span class="text-xs font-bold bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full">
+
                         Active
+
                     </span>
 
                 </div>
 
-                <p class="mt-5 text-gray-500">Events Joined</p>
 
-                <h2 class="text-4xl font-black text-blue-600 mt-2">
-                    5
-                </h2>
+                <p class="text-gray-500 mt-6">
 
-                <p class="text-blue-600 text-sm mt-3">
-                    Keep participating to unlock badges.
+                    Events Joined
+
+                </p>
+
+
+                <h3 class="text-4xl font-black text-blue-600 mt-1">
+
+                    {{ $eventsJoined }}
+
+                </h3>
+
+
+                <p class="text-sm text-gray-400 mt-2">
+
+                    Total approved/completed events.
+
                 </p>
 
             </div>
 
-            <!-- Card 3 -->
-            <div class="bg-white rounded-3xl p-6 shadow-lg hover:-translate-y-2 hover:shadow-2xl transition">
 
-                <div class="flex justify-between items-center">
 
-                   <div class="w-11 h-11 rounded-xl bg-green-100 flex items-center justify-center text-2xl">
+            {{-- Hours --}}
+            <div class="group bg-white rounded-[28px] p-6 border border-orange-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition">
+
+                <div class="flex justify-between items-start">
+
+                    <div class="w-14 h-14 rounded-2xl bg-orange-100 flex items-center justify-center text-3xl">
+
                         ⏱️
+
                     </div>
 
-                    <span class="text-orange-600 text-sm font-bold">
-                        Goal 60 Hrs
+                    <span class="text-xs font-bold bg-orange-50 text-orange-700 px-3 py-1.5 rounded-full">
+
+                        {{ $hoursProgress }}%
+
                     </span>
 
                 </div>
 
-                <p class="mt-5 text-gray-500">Volunteer Hours</p>
 
-                <h2 class="text-4xl font-black text-orange-500 mt-2">
-                    48
-                </h2>
+                <p class="text-gray-500 mt-6">
 
-                <p class="text-orange-500 text-sm mt-3">
-                    Only 12 hours left to reach your goal.
+                    Volunteer Hours
+
+                </p>
+
+
+                <h3 class="text-4xl font-black text-orange-500 mt-1">
+
+                    {{ number_format($volunteerHours, 0) }}
+
+                </h3>
+
+
+                <p class="text-sm text-gray-400 mt-2">
+
+                    Goal: {{ $hoursGoal }} hours
+
                 </p>
 
             </div>
 
-            <!-- Card 4 -->
-            <div class="bg-white rounded-3xl p-6 shadow-lg hover:-translate-y-2 hover:shadow-2xl transition">
 
-                <div class="flex justify-between items-center">
+
+            {{-- Certificates --}}
+            <div class="group bg-white rounded-[28px] p-6 border border-purple-100 shadow-lg hover:shadow-2xl hover:-translate-y-2 transition">
+
+                <div class="flex justify-between items-start">
 
                     <div class="w-14 h-14 rounded-2xl bg-purple-100 flex items-center justify-center text-3xl">
+
                         🏆
+
                     </div>
 
-                    <span class="text-purple-600 text-sm font-bold">
-                        Silver Badge
+                    <span class="text-xs font-bold bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full">
+
+                        {{ $badge }}
+
                     </span>
 
                 </div>
 
-                <p class="mt-5 text-gray-500">Certificates Earned</p>
 
-                <h2 class="text-3xl font-black text-green-600 mt-1">
-                    3
-                </h2>
+                <p class="text-gray-500 mt-6">
 
-                <p class="text-purple-500 text-sm mt-3">
-                    Complete 2 more events for Gold Badge.
+                    Certificates Earned
+
+                </p>
+
+
+                <h3 class="text-4xl font-black text-purple-600 mt-1">
+
+                    {{ $certificates }}
+
+                </h3>
+
+
+                <p class="text-sm text-gray-400 mt-2">
+
+                    Based on completed events.
+
                 </p>
 
             </div>
 
         </div>
 
-        <!-- PART 2 starts from here -->
 
-                <!-- ================= QUICK ACTIONS ================= -->
 
-        <div class="mt-12">
+        {{-- ===================================================== --}}
+        {{-- QUICK ACTIONS --}}
+        {{-- ===================================================== --}}
 
-            <div class="flex justify-between items-center mb-6">
+        <section class="mt-14">
 
-                <div>
-                    <h2 class="text-3xl font-black text-gray-800">
-                        ⚡ Quick Actions
-                    </h2>
-                    <p class="text-gray-500">
-                        Everything you need in one place.
-                    </p>
-                </div>
+            <div class="mb-6">
+
+                <span class="text-green-600 text-sm font-bold">
+
+                    QUICK ACCESS
+
+                </span>
+
+
+                <h2 class="text-3xl font-black text-gray-900 mt-1">
+
+                    Everything You Need ⚡
+
+                </h2>
+
+
+                <p class="text-gray-500 mt-2">
+
+                    Quickly access your most important volunteer activities.
+
+                </p>
 
             </div>
 
-            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
 
-                <!-- Browse Events -->
-                <a href="#events" class="group bg-gradient-to-r from-green-500 to-emerald-600 rounded-3xl p-6 text-white shadow-lg hover:-translate-y-2 transition">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
 
-                    <div class="text-5xl mb-5 group-hover:scale-110 transition">
+
+                {{-- Browse --}}
+                <a href="{{ route('events.index') }}"
+                   class="group relative overflow-hidden bg-gradient-to-br from-green-500 to-emerald-700 rounded-[28px] p-7 text-white shadow-xl hover:-translate-y-2 transition">
+
+                    <div class="absolute -right-8 -top-8 w-28 h-28 rounded-full bg-white/10"></div>
+
+
+                    <div class="text-5xl group-hover:scale-110 transition">
+
                         🌍
+
                     </div>
 
-                    <h3 class="text-xl font-bold">
+
+                    <h3 class="text-xl font-bold mt-5">
+
                         Browse Events
+
                     </h3>
+
 
                     <p class="text-green-100 text-sm mt-2">
-                        Explore all volunteer opportunities around you.
+
+                        Explore available volunteer opportunities.
+
                     </p>
 
                 </a>
 
-                <!-- My Events -->
-                <a href="#" class="group bg-gradient-to-r from-blue-500 to-cyan-600 rounded-3xl p-6 text-white shadow-lg hover:-translate-y-2 transition">
 
-                    <div class="text-5xl mb-5 group-hover:scale-110 transition">
+
+                {{-- Schedule --}}
+                <a href="#schedule"
+                   class="group relative overflow-hidden bg-gradient-to-br from-teal-500 to-cyan-700 rounded-[28px] p-7 text-white shadow-xl hover:-translate-y-2 transition">
+
+                    <div class="text-5xl group-hover:scale-110 transition">
+
                         📅
+
                     </div>
 
-                    <h3 class="text-xl font-bold">
-                        My Events
+
+                    <h3 class="text-xl font-bold mt-5">
+
+                        My Schedule
+
                     </h3>
 
-                    <p class="text-blue-100 text-sm mt-2">
-                        View all registered volunteer events.
+
+                    <p class="text-teal-100 text-sm mt-2">
+
+                        View your approved upcoming events.
+
                     </p>
 
                 </a>
 
-                <!-- Certificates -->
-                <a href="#" class="group bg-gradient-to-r from-purple-500 to-indigo-600 rounded-3xl p-6 text-white shadow-lg hover:-translate-y-2 transition">
 
-                    <div class="text-5xl mb-5 group-hover:scale-110 transition">
+
+                {{-- Certificates --}}
+                <a href="#activity"
+                   class="group relative overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-700 rounded-[28px] p-7 text-white shadow-xl hover:-translate-y-2 transition">
+
+                    <div class="text-5xl group-hover:scale-110 transition">
+
                         📜
+
                     </div>
 
-                    <h3 class="text-xl font-bold">
+
+                    <h3 class="text-xl font-bold mt-5">
+
                         Certificates
+
                     </h3>
 
-                    <p class="text-purple-100 text-sm mt-2">
-                        Download your volunteer certificates.
+
+                    <p class="text-indigo-100 text-sm mt-2">
+
+                        Track your completed volunteer activities.
+
                     </p>
 
                 </a>
 
-                <!-- Volunteer Hours -->
-                <a href="#" class="group bg-gradient-to-r from-orange-400 to-red-500 rounded-3xl p-6 text-white shadow-lg hover:-translate-y-2 transition">
 
-                    <div class="text-5xl mb-5 group-hover:scale-110 transition">
-                        ⏱️
+
+                {{-- Progress --}}
+                <a href="#progress"
+                   class="group relative overflow-hidden bg-gradient-to-br from-orange-400 to-red-600 rounded-[28px] p-7 text-white shadow-xl hover:-translate-y-2 transition">
+
+                    <div class="text-5xl group-hover:scale-110 transition">
+
+                        📈
+
                     </div>
 
-                    <h3 class="text-xl font-bold">
-                        Volunteer Hours
+
+                    <h3 class="text-xl font-bold mt-5">
+
+                        My Progress
+
                     </h3>
+
 
                     <p class="text-orange-100 text-sm mt-2">
-                        Track completed community service hours.
+
+                        Track your volunteer goals.
+
                     </p>
 
                 </a>
 
             </div>
 
-        </div>
+        </section>
 
-        <!-- ================= AVAILABLE EVENTS ================= -->
 
-        <div id="events" class="mt-16">
 
-            <div class="flex justify-between items-center mb-8">
+        {{-- ===================================================== --}}
+        {{-- PROGRESS --}}
+        {{-- ===================================================== --}}
 
-                <div>
-                    <h2 class="text-3xl font-black text-gray-800">
-                        🌱 Available Volunteer Events
-                    </h2>
+        <section id="progress" class="mt-16">
 
-                    <p class="text-gray-500">
-                        Register now before the slots are filled.
-                    </p>
-                </div>
 
-                <button class="text-green-700 font-semibold hover:text-green-900">
-                    View All →
-                </button>
+            <div class="mb-7">
 
-            </div>
+                <span class="text-green-600 text-sm font-bold">
 
-            <div class="grid lg:grid-cols-3 gap-8">
+                    YOUR JOURNEY
 
-                <!-- EVENT CARD 1 -->
-                <div class="bg-white rounded-[28px] overflow-hidden shadow-xl hover:-translate-y-2 transition">
+                </span>
 
-                    <div class="h-48 bg-gradient-to-r from-green-500 to-emerald-400 flex items-center justify-center text-7xl">
-                        🌳
-                    </div>
 
-                    <div class="p-6">
+                <h2 class="text-3xl font-black text-gray-900 mt-1">
 
-                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-semibold">
-                            Environment
-                        </span>
+                    Volunteer Progress 🎯
 
-                        <h3 class="text-2xl font-bold mt-4">
-                            Tree Plantation Drive
-                        </h3>
+                </h2>
 
-                        <div class="space-y-2 mt-4 text-gray-600 text-sm">
 
-                            <p>📍 Nashik, Maharashtra</p>
+                <p class="text-gray-500 mt-2">
 
-                            <p>📅 20 September 2026</p>
+                    See how far you have progressed as a volunteer.
 
-                            <p>⏰ 9:00 AM – 1:00 PM</p>
-
-                        </div>
-
-                        <!-- Capacity -->
-                        <div class="mt-5">
-
-                            <div class="flex justify-between text-sm mb-2">
-                                <span>Capacity</span>
-                                <span class="font-semibold">38 / 50 Filled</span>
-                            </div>
-
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-green-600 h-2.5 rounded-full w-3/4"></div>
-                            </div>
-
-                            <p class="text-green-600 text-sm mt-2 font-semibold">
-                                ✅ 12 Slots Remaining
-                            </p>
-
-                        </div>
-
-                        <button class="w-full mt-6 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-semibold">
-                            Join Event
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <!-- EVENT CARD 2 -->
-                <div class="bg-white rounded-[28px] overflow-hidden shadow-xl hover:-translate-y-2 transition">
-
-                    <div class="h-48 bg-gradient-to-r from-red-500 to-pink-400 flex items-center justify-center text-7xl">
-                        ❤️
-                    </div>
-
-                    <div class="p-6">
-
-                        <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-semibold">
-                            Healthcare
-                        </span>
-
-                        <h3 class="text-2xl font-bold mt-4">
-                            Blood Donation Camp
-                        </h3>
-
-                        <div class="space-y-2 mt-4 text-gray-600 text-sm">
-
-                            <p>📍 Pune, Maharashtra</p>
-
-                            <p>📅 25 September 2026</p>
-
-                            <p>⏰ 10:00 AM – 4:00 PM</p>
-
-                        </div>
-
-                        <div class="mt-5">
-
-                            <div class="flex justify-between text-sm mb-2">
-                                <span>Capacity</span>
-                                <span class="font-semibold">45 / 50 Filled</span>
-                            </div>
-
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-red-500 h-2.5 rounded-full w-[90%]"></div>
-                            </div>
-
-                            <p class="text-red-600 text-sm mt-2 font-semibold">
-                                ⚠️ Only 5 Slots Remaining
-                            </p>
-
-                        </div>
-
-                        <button class="w-full mt-6 bg-red-600 hover:bg-red-700 text-white py-3 rounded-xl font-semibold">
-                            Join Event
-                        </button>
-
-                    </div>
-
-                </div>
-
-                <!-- EVENT CARD 3 -->
-                <div class="bg-white rounded-[28px] overflow-hidden shadow-xl hover:-translate-y-2 transition">
-
-                    <div class="h-48 bg-gradient-to-r from-blue-500 to-cyan-400 flex items-center justify-center text-7xl">
-                        📚
-                    </div>
-
-                    <div class="p-6">
-
-                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold">
-                            Education
-                        </span>
-
-                        <h3 class="text-2xl font-bold mt-4">
-                            Education Support Camp
-                        </h3>
-
-                        <div class="space-y-2 mt-4 text-gray-600 text-sm">
-
-                            <p>📍 Mumbai, Maharashtra</p>
-
-                            <p>📅 30 September 2026</p>
-
-                            <p>⏰ 11:00 AM – 3:00 PM</p>
-
-                        </div>
-
-                        <div class="mt-5">
-
-                            <div class="flex justify-between text-sm mb-2">
-                                <span>Capacity</span>
-                                <span class="font-semibold">32 / 40 Filled</span>
-                            </div>
-
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-blue-500 h-2.5 rounded-full w-4/5"></div>
-                            </div>
-
-                            <p class="text-blue-600 text-sm mt-2 font-semibold">
-                                ✅ 8 Slots Remaining
-                            </p>
-
-                        </div>
-
-                        <button class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold">
-                            Join Event
-                        </button>
-
-                    </div>
-
-                </div>
+                </p>
 
             </div>
 
-        </div>
 
-        <!-- ================= PART 3 STARTS BELOW ================= -->
 
-                <!-- ================= VOLUNTEER PROGRESS ================= -->
+            <div class="grid lg:grid-cols-3 gap-7">
 
-        <div class="mt-16">
 
-            <h2 class="text-3xl font-black text-gray-800 mb-8">
-                🎯 My Volunteer Progress
-            </h2>
+                {{-- Progress --}}
+                <div class="lg:col-span-2 bg-white rounded-[30px] p-8 shadow-xl border border-gray-100">
 
-            <div class="grid lg:grid-cols-2 gap-8">
 
-                <!-- Progress Card -->
-                <div class="bg-white rounded-[28px] shadow-xl p-8">
+                    <div class="flex justify-between items-center mb-8">
 
-                    <h3 class="text-2xl font-bold text-gray-700 mb-6">
-                        📈 Community Impact Progress
-                    </h3>
+                        <div>
 
-                    <!-- Hours -->
-                    <div class="mb-6">
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Volunteer Hours</span>
-                            <span class="font-bold text-green-600">48 / 60 Hours</span>
+                            <h3 class="text-2xl font-black text-gray-800">
+
+                                Community Impact
+
+                            </h3>
+
+                            <p class="text-gray-500 text-sm mt-1">
+
+                                Based on your completed volunteering activities.
+
+                            </p>
+
                         </div>
 
-                        <div class="w-full bg-gray-200 rounded-full h-3">
-                            <div class="bg-green-500 h-3 rounded-full w-4/5"></div>
+
+                        <div class="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center text-2xl">
+
+                            📊
+
                         </div>
 
-                        <p class="text-green-600 text-sm mt-2">
-                            ✅ 80% Completed
-                        </p>
                     </div>
 
-                    <!-- Events -->
-                    <div class="mb-6">
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Events Participation</span>
-                            <span class="font-bold text-blue-600">5 / 10 Events</span>
+
+
+                    {{-- Hours --}}
+                    <div class="mb-9">
+
+                        <div class="flex justify-between mb-3">
+
+                            <span class="font-bold text-gray-700">
+
+                                Volunteer Hours
+
+                            </span>
+
+
+                            <span class="font-black text-green-600">
+
+                                {{ number_format($volunteerHours, 0) }}
+                                /
+                                {{ $hoursGoal }}
+
+                            </span>
+
                         </div>
 
-                        <div class="w-full bg-gray-200 rounded-full h-3">
-                            <div class="bg-blue-500 h-3 rounded-full w-1/2"></div>
+
+                        <div class="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
+
+                            <div
+                                class="h-full bg-gradient-to-r from-green-500 to-emerald-600 rounded-full transition-all duration-700"
+                                style="width: {{ $hoursProgress }}%">
+                            </div>
+
                         </div>
 
-                        <p class="text-blue-600 text-sm mt-2">
-                            🌍 Participate in 5 more events.
+
+                        <p class="text-sm text-gray-500 mt-2">
+
+                            @if($remainingHours > 0)
+
+                                {{ $remainingHours }} more hours to reach your goal.
+
+                            @else
+
+                                🎉 You completed your hours goal!
+
+                            @endif
+
                         </p>
+
                     </div>
 
-                    <!-- Impact -->
+
+
+                    {{-- Events --}}
                     <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Community Impact</span>
-                            <span class="font-bold text-purple-600">75%</span>
+
+                        <div class="flex justify-between mb-3">
+
+                            <span class="font-bold text-gray-700">
+
+                                Event Participation
+
+                            </span>
+
+
+                            <span class="font-black text-blue-600">
+
+                                {{ $eventsJoined }}
+                                /
+                                {{ $eventGoal }}
+
+                            </span>
+
                         </div>
 
-                        <div class="w-full bg-gray-200 rounded-full h-3">
-                            <div class="bg-purple-500 h-3 rounded-full w-3/4"></div>
+
+                        <div class="w-full h-4 bg-gray-100 rounded-full overflow-hidden">
+
+                            <div
+                                class="h-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-700"
+                                style="width: {{ $eventProgress }}%">
+                            </div>
+
                         </div>
 
-                        <p class="text-purple-600 text-sm mt-2">
-                            💜 Excellent contribution to society.
+
+                        <p class="text-sm text-gray-500 mt-2">
+
+                            @if($remainingEvents > 0)
+
+                                {{ $remainingEvents }} more events to reach your goal.
+
+                            @else
+
+                                🎉 You completed your event goal!
+
+                            @endif
+
                         </p>
+
                     </div>
 
                 </div>
 
-                <!-- Badge Card -->
-                <div class="bg-gradient-to-br from-purple-700 via-indigo-700 to-blue-700 rounded-[28px] shadow-xl p-8 text-white">
 
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-3xl font-black">
-                            🏅 Silver Volunteer
-                        </h3>
 
-                        <span class="text-5xl">⭐</span>
-                    </div>
+                {{-- Badge --}}
+                <div class="relative overflow-hidden bg-gradient-to-br from-green-700 via-emerald-600 to-teal-700 rounded-[30px] p-8 text-white shadow-xl">
 
-                    <p class="text-purple-100">
-                        Your Impact Score is growing every time you participate in community events.
-                    </p>
 
-                    <div class="bg-white/10 rounded-3xl p-6 mt-8 backdrop-blur-lg">
+                    <div class="absolute -right-16 -top-16 w-44 h-44 rounded-full bg-white/10"></div>
 
-                        <div class="flex justify-between items-center">
 
-                            <div>
-                                <p class="text-purple-200 text-sm">Impact Score</p>
-                                <h2 class="text-5xl font-black mt-2">
-                                    950
-                                </h2>
-                            </div>
+                    <div class="relative">
 
-                            <div class="text-6xl">
-                                🏆
-                            </div>
+                        <p class="text-green-100 text-sm font-semibold">
 
-                        </div>
+                            CURRENT ACHIEVEMENT
 
-                        <div class="w-full bg-white/20 rounded-full h-3 mt-6">
-                            <div class="bg-yellow-300 h-3 rounded-full w-[90%]"></div>
-                        </div>
-
-                        <p class="mt-4 text-yellow-200 text-sm font-semibold">
-                            🎖️ Complete 2 more events to unlock GOLD Volunteer Badge.
                         </p>
 
-                    </div>
 
-                    <!-- Mini Stats -->
-                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="text-7xl mt-8">
 
-                        <div class="bg-white/10 rounded-2xl p-4 text-center">
-                            <h3 class="text-2xl font-black">3</h3>
-                            <p class="text-purple-200 text-xs">
-                                Certificates
-                            </p>
+                            {{ $badgeIcon }}
+
                         </div>
 
-                        <div class="bg-white/10 rounded-2xl p-4 text-center">
-                            <h3 class="text-2xl font-black">12</h3>
-                            <p class="text-purple-200 text-xs">
-                                Upcoming Events
-                            </p>
+
+                        <h3 class="text-3xl font-black mt-5">
+
+                            {{ $badge }}
+
+                        </h3>
+
+
+                        <p class="text-green-100 mt-3 leading-7">
+
+                            Keep participating in community activities
+                            and continue building your volunteer journey.
+
+                        </p>
+
+
+                        <div class="mt-8 bg-white/10 rounded-2xl p-4">
+
+
+                            <div class="flex justify-between text-sm">
+
+                                <span>Events</span>
+
+                                <span class="font-bold">
+
+                                    {{ $eventsJoined }}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="flex justify-between text-sm mt-3">
+
+                                <span>Hours</span>
+
+                                <span class="font-bold">
+
+                                    {{ number_format($volunteerHours, 0) }}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="flex justify-between text-sm mt-3">
+
+                                <span>Certificates</span>
+
+                                <span class="font-bold">
+
+                                    {{ $certificates }}
+
+                                </span>
+
+                            </div>
+
                         </div>
 
                     </div>
@@ -649,42 +850,96 @@
 
             </div>
 
-        </div>
+        </section>
 
-        <!-- ================= UPCOMING SCHEDULE ================= -->
 
-        <div class="mt-16">
 
-            <div class="flex justify-between items-center mb-8">
+        {{-- ===================================================== --}}
+        {{-- UPCOMING SCHEDULE --}}
+        {{-- ===================================================== --}}
+
+        <section id="schedule" class="mt-16">
+
+
+            <div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-7">
 
                 <div>
-                    <h2 class="text-3xl font-black text-gray-800">
-                        📅 Upcoming Schedule
+
+                    <span class="text-green-600 text-sm font-bold">
+
+                        YOUR CALENDAR
+
+                    </span>
+
+
+                    <h2 class="text-3xl font-black text-gray-900 mt-1">
+
+                        Upcoming Schedule 📅
+
                     </h2>
 
-                    <p class="text-gray-500">
-                        Events you have registered for this month.
+
+                    <p class="text-gray-500 mt-2">
+
+                        Your approved volunteer events.
+
                     </p>
+
                 </div>
+
+
+                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-bold">
+
+                    {{ $upcomingEvents }} Upcoming
+
+                </span>
 
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-8">
 
-                <!-- Calendar Card -->
-                <div class="bg-white rounded-[28px] p-8 shadow-xl">
 
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold text-green-700">
-                            📅 September 2026
-                        </h3>
+            <div class="grid lg:grid-cols-2 gap-7">
 
-                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
-                            3 Events
-                        </span>
+
+                {{-- ================================================= --}}
+                {{-- CALENDAR --}}
+                {{-- ================================================= --}}
+
+                <div class="bg-white rounded-[30px] p-7 shadow-xl border border-gray-100">
+
+
+                    <div class="flex justify-between items-center mb-7">
+
+                        <div>
+
+                            <h3 class="text-xl font-black text-gray-800">
+
+                                {{ $calendarMonth->format('F Y') }}
+
+                            </h3>
+
+
+                            <p class="text-gray-400 text-sm mt-1">
+
+                                Registered event dates
+
+                            </p>
+
+                        </div>
+
+
+                        <div class="w-11 h-11 bg-green-100 rounded-xl flex items-center justify-center">
+
+                            📅
+
+                        </div>
+
                     </div>
 
-                    <div class="grid grid-cols-7 gap-2 text-center text-sm font-semibold text-gray-500 mb-3">
+
+
+                    <div class="grid grid-cols-7 gap-2 text-center text-xs font-bold text-gray-400 mb-3">
+
                         <div>Sun</div>
                         <div>Mon</div>
                         <div>Tue</div>
@@ -692,133 +947,449 @@
                         <div>Thu</div>
                         <div>Fri</div>
                         <div>Sat</div>
-                    </div>
-
-                    <div class="grid grid-cols-7 gap-2 text-center">
-
-                        @for ($day = 1; $day <= 30; $day++)
-
-                            <div
-                                class="aspect-square rounded-xl flex items-center justify-center text-sm font-semibold
-                                {{ in_array($day, [20,25,30])
-                                    ? 'bg-green-600 text-white shadow-md'
-                                    : 'bg-gray-100 hover:bg-green-100 text-gray-700' }}">
-
-                                {{ $day }}
-
-                            </div>
-
-                        @endfor
 
                     </div>
 
-                    <p class="mt-6 text-sm text-green-600 font-semibold">
-                        🟢 Green dates indicate your registered volunteer events.
-                    </p>
+
+
+                    <div class="grid grid-cols-7 gap-2">
+
+
+                        @foreach($calendarDays as $day)
+
+
+                            @if(!$day)
+
+                                <div class="aspect-square"></div>
+
+                            @else
+
+
+                                @php
+
+                                    $date = $calendarMonth
+                                        ->copy()
+                                        ->day($day)
+                                        ->format('Y-m-d');
+
+                                    $isRegistered = in_array(
+                                        $date,
+                                        $registeredDates
+                                    );
+
+                                    $isToday = $date === now()->format('Y-m-d');
+
+                                @endphp
+
+
+                                <div
+                                    class="
+                                    aspect-square
+                                    rounded-xl
+                                    flex items-center justify-center
+                                    text-sm font-bold
+                                    transition
+
+                                    {{ $isRegistered
+                                        ? 'bg-green-600 text-white shadow-md'
+                                        : ($isToday
+                                            ? 'bg-green-100 text-green-700 ring-2 ring-green-400'
+                                            : 'bg-gray-50 text-gray-600 hover:bg-green-50')
+                                    }}
+                                    ">
+
+                                    {{ $day }}
+
+                                </div>
+
+
+                            @endif
+
+
+                        @endforeach
+
+                    </div>
+
+
+
+                    <div class="mt-7 flex flex-wrap items-center gap-3 text-sm text-gray-500">
+
+                        <span class="w-3 h-3 rounded-full bg-green-600"></span>
+
+                        Registered event
+
+                        <span class="w-3 h-3 rounded-full bg-green-100 ring-1 ring-green-400 ml-3"></span>
+
+                        Today
+
+                    </div>
 
                 </div>
 
-                <!-- Schedule List -->
-                <div class="bg-white rounded-[28px] p-8 shadow-xl">
 
-                    <h3 class="text-xl font-bold mb-6">
-                        🗓️ My Event Schedule
-                    </h3>
 
-                    <div class="space-y-5">
+                {{-- ================================================= --}}
+                {{-- SCHEDULE LIST --}}
+                {{-- ================================================= --}}
 
-                        <div class="flex items-center gap-4 bg-green-50 p-4 rounded-2xl border-l-4 border-green-500">
+                <div class="bg-white rounded-[30px] p-7 shadow-xl border border-gray-100">
 
-                            <div class="text-4xl">🌳</div>
 
-                            <div>
-                                <h4 class="font-bold">
-                                    Tree Plantation Drive
-                                </h4>
-                                <p class="text-gray-500 text-sm">
-                                    Nashik • 20 Sept • 9:00 AM
-                                </p>
-                            </div>
+                    <div class="flex justify-between items-center mb-6">
 
-                        </div>
+                        <h3 class="text-xl font-black text-gray-800">
 
-                        <div class="flex items-center gap-4 bg-red-50 p-4 rounded-2xl border-l-4 border-red-500">
+                            My Event Schedule
 
-                            <div class="text-4xl">❤️</div>
+                        </h3>
 
-                            <div>
-                                <h4 class="font-bold">
-                                    Blood Donation Camp
-                                </h4>
-                                <p class="text-gray-500 text-sm">
-                                    Pune • 25 Sept • 10:00 AM
-                                </p>
-                            </div>
 
-                        </div>
+                        <span class="text-sm text-gray-400">
 
-                        <div class="flex items-center gap-4 bg-blue-50 p-4 rounded-2xl border-l-4 border-blue-500">
+                            Upcoming
 
-                            <div class="text-4xl">📚</div>
-
-                            <div>
-                                <h4 class="font-bold">
-                                    Education Support Camp
-                                </h4>
-                                <p class="text-gray-500 text-sm">
-                                    Mumbai • 30 Sept • 11:00 AM
-                                </p>
-                            </div>
-
-                        </div>
+                        </span>
 
                     </div>
+
+
+
+                    @forelse($scheduleEvents as $registration)
+
+
+                        @php
+                            $event = $registration->event;
+                        @endphp
+
+
+                        @if($event)
+
+                            <div class="group flex items-center gap-4 p-4 mb-4 bg-green-50/70 hover:bg-green-100 rounded-2xl border border-green-100 transition">
+
+
+                                <div class="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-2xl">
+
+                                    🌱
+
+                                </div>
+
+
+                                <div class="flex-1 min-w-0">
+
+
+                                    <h4 class="font-bold text-gray-800 truncate">
+
+                                        {{ $event->title }}
+
+                                    </h4>
+
+
+                                    <p class="text-gray-500 text-sm mt-1">
+
+                                        📍
+                                        {{ $event->location ?? 'Location not available' }}
+
+                                    </p>
+
+
+                                    <p class="text-green-600 text-xs font-semibold mt-1">
+
+                                        📅
+                                        {{ \Carbon\Carbon::parse($event->event_date)->format('d M Y') }}
+
+                                        @if($event->event_time)
+
+                                            • {{ $event->event_time }}
+
+                                        @endif
+
+                                    </p>
+
+                                </div>
+
+
+                                <span class="hidden sm:inline-flex bg-green-100 text-green-700 px-3 py-1.5 rounded-full text-xs font-bold">
+
+                                    Approved
+
+                                </span>
+
+                            </div>
+
+                        @endif
+
+
+                    @empty
+
+
+                        <div class="text-center py-14">
+
+
+                            <div class="text-5xl">
+
+                                📅
+
+                            </div>
+
+
+                            <h4 class="font-bold text-gray-700 mt-4">
+
+                                No Upcoming Events
+
+                            </h4>
+
+
+                            <p class="text-gray-400 text-sm mt-2">
+
+                                You don't have any approved upcoming events.
+
+                            </p>
+
+
+                            <a href="{{ route('events.index') }}"
+                               class="inline-block mt-5 bg-green-600 hover:bg-green-700 text-white px-5 py-2.5 rounded-full text-sm font-bold transition">
+
+                                Browse Events
+
+                            </a>
+
+                        </div>
+
+
+                    @endforelse
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-        
 
-        <!-- ================= MOTIVATION BANNER ================= -->
 
-        <div class="mt-16">
+        {{-- ===================================================== --}}
+        {{-- RECENT ACTIVITY --}}
+        {{-- ===================================================== --}}
 
-            <div class="bg-gradient-to-r from-green-700 via-emerald-600 to-blue-700 rounded-[32px] p-10 text-center text-white shadow-2xl">
+        <section id="activity" class="mt-16">
 
-                <h2 class="text-5xl font-black leading-tight">
-                    💚 Together We Can Make a Difference!
+
+            <div class="mb-7">
+
+                <span class="text-green-600 text-sm font-bold">
+
+                    ACTIVITY
+
+                </span>
+
+
+                <h2 class="text-3xl font-black text-gray-900 mt-1">
+
+                    Recent Activity 🔔
+
                 </h2>
 
-                <p class="mt-5 text-lg text-green-100 max-w-3xl mx-auto leading-8">
-                    Every event you join helps create a cleaner environment,
-                    healthier communities and a brighter future for everyone.
-                    Keep volunteering and inspire others to participate.
+
+                <p class="text-gray-500 mt-2">
+
+                    Your latest volunteer registration activities.
+
                 </p>
 
-                <div class="flex flex-wrap justify-center gap-4 mt-8">
+            </div>
 
-                    <button class="bg-yellow-400 text-black px-8 py-3 rounded-full font-bold hover:bg-yellow-300 transition">
-                        🌍 Browse More Events
-                    </button>
 
-                    <button class="border border-white px-8 py-3 rounded-full hover:bg-white hover:text-green-700 transition">
-                        🤝 Invite Friends
-                    </button>
+
+            <div class="bg-white rounded-[30px] shadow-xl border border-gray-100 overflow-hidden">
+
+
+                @forelse($recentRegistrations as $registration)
+
+
+                    @php
+
+                        $status = strtolower(
+                            $registration->status ?? 'pending'
+                        );
+
+                        $statusClasses = match($status) {
+
+                            'approved' =>
+                                'bg-green-100 text-green-700',
+
+                            'completed' =>
+                                'bg-blue-100 text-blue-700',
+
+                            'rejected' =>
+                                'bg-red-100 text-red-700',
+
+                            default =>
+                                'bg-yellow-100 text-yellow-700',
+
+                        };
+
+
+                        $statusIcon = match($status) {
+
+                            'approved' => '✅',
+
+                            'completed' => '🏆',
+
+                            'rejected' => '❌',
+
+                            default => '⏳',
+
+                        };
+
+                    @endphp
+
+
+                    <div class="flex items-center gap-4 p-5 border-b last:border-b-0 hover:bg-gray-50 transition">
+
+
+                        <div class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center text-xl">
+
+                            {{ $statusIcon }}
+
+                        </div>
+
+
+                        <div class="flex-1 min-w-0">
+
+
+                            <h4 class="font-bold text-gray-800 truncate">
+
+                                {{ $registration->event->title ?? 'Event' }}
+
+                            </h4>
+
+
+                            <p class="text-sm text-gray-400 mt-1">
+
+                                Registration status:
+
+                                {{ ucfirst($status) }}
+
+                            </p>
+
+                        </div>
+
+
+                        <span class="px-3 py-1.5 rounded-full text-xs font-bold {{ $statusClasses }}">
+
+                            {{ ucfirst($status) }}
+
+                        </span>
+
+                    </div>
+
+
+                @empty
+
+
+                    <div class="text-center py-12">
+
+
+                        <div class="text-5xl">
+
+                            📋
+
+                        </div>
+
+
+                        <h3 class="font-bold text-gray-700 mt-4">
+
+                            No Activity Yet
+
+                        </h3>
+
+
+                        <p class="text-gray-400 text-sm mt-2">
+
+                            Your volunteering activity will appear here.
+
+                        </p>
+
+                    </div>
+
+
+                @endforelse
+
+            </div>
+
+        </section>
+
+
+
+        {{-- ===================================================== --}}
+        {{-- MOTIVATION --}}
+        {{-- ===================================================== --}}
+
+        <section class="mt-16">
+
+
+            <div class="relative overflow-hidden bg-gradient-to-r from-green-800 via-emerald-700 to-teal-700 rounded-[35px] p-10 md:p-14 text-center text-white shadow-2xl">
+
+
+                <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/10"></div>
+
+                <div class="absolute -bottom-24 -left-16 w-60 h-60 rounded-full bg-white/10"></div>
+
+
+                <div class="relative">
+
+
+                    <div class="text-5xl">
+
+                        💚
+
+                    </div>
+
+
+                    <h2 class="text-3xl md:text-5xl font-black mt-5">
+
+                        Every Action Creates Impact
+
+                    </h2>
+
+
+                    <p class="mt-5 text-green-100 max-w-3xl mx-auto leading-8">
+
+                        Your time, energy and participation can help create
+                        stronger communities and a better future.
+
+                    </p>
+
+
+                    <div class="flex flex-wrap justify-center gap-4 mt-8">
+
+
+                        <a href="{{ route('events.index') }}"
+                           class="bg-yellow-400 hover:bg-yellow-300 text-gray-900 px-8 py-3.5 rounded-full font-bold shadow-lg transition">
+
+                            🌍 Find an Event
+
+                        </a>
+
+
+                        <a href="#progress"
+                           class="border border-white/50 hover:bg-white hover:text-green-800 px-8 py-3.5 rounded-full font-bold transition">
+
+                            📈 View My Progress
+
+                        </a>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
-    </div>
 
-    
+        <div class="h-8"></div>
 
-        
+    </main>
 
 </div>
 

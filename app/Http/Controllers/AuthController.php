@@ -60,7 +60,7 @@ class AuthController extends Controller
             }
 
             // Volunteer
-            return redirect()->route('volunteerdashboard');
+            return redirect()->route('dashboard');
         }
 
         return back()

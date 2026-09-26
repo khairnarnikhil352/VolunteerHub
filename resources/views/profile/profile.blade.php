@@ -703,7 +703,7 @@
                 <div class="mt-10 pt-8 border-t border-gray-100 flex flex-col sm:flex-row gap-4 justify-between">
 
 
-                    <a href="{{ route('volunteerdashboard') }}"
+                    <a href="{{ route('dashboard') }}"
                        class="inline-flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-7 py-4 rounded-2xl font-bold transition">
 
                         ←

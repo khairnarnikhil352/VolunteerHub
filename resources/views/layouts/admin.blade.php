@@ -146,7 +146,8 @@
     <div class="max-w-7xl mx-auto px-6 py-5
                 text-center text-gray-500 text-sm">
 
-        🌿 VolunteerHub Admin Panel © 2026
+        🌿 VolunteerHub Student Portal © 2026 • Designed & Developed by Nikhil Khairnar
+
 
     </div>
 

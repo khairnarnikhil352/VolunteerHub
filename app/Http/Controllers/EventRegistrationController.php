@@ -122,7 +122,7 @@ class EventRegistrationController extends Controller
 
             'medical_condition' => $validated['medical_condition'],
 
-            'status' => 'Pending',
+            'status' => 'pending',
 
         ]);
 
@@ -270,6 +270,48 @@ class EventRegistrationController extends Controller
         $event = $registration->event;
 
         return view('events.view-application', compact('registration', 'event'));
+    }
+
+
+
+
+   public function idCard($registrationId)
+    {
+        $registration = EventRegistration::with(['event', 'user'])
+            ->where('id', $registrationId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        if (strtolower(trim($registration->status ?? '')) !== 'approved') {
+
+            return redirect()
+                ->route('my.events')
+                ->with('error', 'ID Card is available only after approval.');
+
+        }
+
+        return view('volunteer.id-card', compact('registration'));
+    }
+
+
+
+
+    public function downloadCertificate($registrationId)
+    {
+        $registration = EventRegistration::with(['event', 'user'])
+            ->where('id', $registrationId)
+            ->where('user_id', auth()->id())
+            ->firstOrFail();
+
+        if (strtolower(trim($registration->status ?? '')) !== 'completed') {
+
+            return redirect()
+                ->route('my.events')
+                ->with('error', 'Certificate is available only after completing the event.');
+
+        }
+
+        return view('volunteer.certificate', compact('registration'));
     }
 
 
